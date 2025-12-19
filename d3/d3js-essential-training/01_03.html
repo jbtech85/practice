@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_03 styling gotchas</title>
+
+  <style>
+    svg { 
+      background-color: green;
+      border: 1px solid black;
+    }
+    circle { 
+      fill: green;
+      stroke: yellow;
+      stroke-width: 3px;
+    }
+    text {
+      fill: white;
+      stroke: blue;
+      stroke-width: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <svg>
+      <circle r="50" cx="100" cy="80"></circle>
+      <text x="77" y="85">Yooooo</text>
+    </svg>
+  </div>
+</body>
+</html>

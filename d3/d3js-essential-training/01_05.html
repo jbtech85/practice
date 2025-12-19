@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_05 d3 library</title>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    svg { 
+      background-color: green;
+      border: 1px solid black;
+    }
+    circle { 
+      fill: green;
+      stroke: yellow;
+      stroke-width: 3px;
+    }
+    text {
+      fill: white;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <script>console.log(d3.version);</script>
+  <svg height="100%" width="100%" viewBox="0 0 200 250" preserveAspectRatio="xMidYMid meet">
+    <circle r="50" cx="100" cy="80"></circle>
+    <text x="77" y="85">Yooooo</text>
+  </svg>
+</body>
+</html>
