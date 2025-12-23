@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    function updateClock() {
+      // set elements
+      const hours = document.querySelector("#hours");
+      const minutes = document.querySelector("#minutes");
+      const seconds = document.querySelector("#seconds");
+      
+      // get current datetime
+      const currentDateTime = new Date();
+      
+      let hoursText = currentDateTime.getHours();
+      if(hoursText < 10){
+        hoursText = "0" + hoursText;
+      }
+
+      let minutesText = currentDateTime.getMinutes();
+      if(minutesText < 10){
+        minutesText = "0" + minutesText;
+      }
+
+      let secondsText = currentDateTime.getSeconds();
+      if(secondsText < 10){
+        secondsText = "0" + secondsText;
+      }
+
+      hours.textContent = hoursText;
+      minutes.textContent = minutesText;
+      seconds.textContent = secondsText;
+
+      // due to how setTimeout works, this slowly starts lagging behind the other clock, then will eventually be back in sync (goes back to grabbing correct time once a full second out of sync)
+      setTimeout(() => {
+        updateClock();
+      }, 1000)
+    }
+    
+    function simplerClock() {
+      const clockNode = document.querySelector("#simplerClock");
+      setInterval(() => {
+        let date = new Date();
+        let currentTime = date.toLocaleTimeString();
+        clockNode.textContent = currentTime;
+      }, 1000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function(){
+      updateClock();
+      simplerClock();
+    });
+
+
+  </script>
+</head>
+<body>
+  <span id="hours"></span>:<span id="minutes"></span>:<span id="seconds"></span>
+  <br /><br />
+  <div id="simplerClock"></div>
+</body>
+</html>

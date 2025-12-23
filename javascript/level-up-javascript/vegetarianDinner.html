@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+  <script>
+    const menu = [
+      {name: "Eggplant Parmeson", isVegetarian: true},
+      {name: "Spaghetti & Meatballs", isVegetarian: false},
+      {name: "Josh's homemade Tacos", isVegetarian: false},
+      {name: "General Tso's Tofu", isVegetarian: true},
+      {name: "Veggie Mac", isVegetarian: true}
+    ]
+
+    function vegetarianMenu(menu) {
+      const menuNode = document.querySelector("#veggieDishes");
+      const veggieDishes = menu.filter(dish => dish.isVegetarian);
+
+
+      veggieDishes.forEach(option => {
+        let dish = document.createElement("li");
+        dish.textContent = option.name;
+        menuNode.appendChild(dish);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      vegetarianMenu(menu);
+    });
+  </script>
+</head>
+<body>
+  <h1>Veggie Dishes</h1>
+  <div>
+    <ul id="veggieDishes"></ul>
+  </div>
+</body>
+</html>

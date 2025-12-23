@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+  <script>
+    // develop inventory app for bookstore
+    // each book has Title, Author, ISBN numCopies
+
+    // getAvailability() // as a getter method in a class
+    // if(numCopies == 0) { "out of stock "}
+    // elseif(numCopies < 10) { "low stock "}
+    // else { "in stock " }
+
+    // sell(numSold) // default to 1
+
+    // restock(numCopies)
+
+    class Book {
+      constructor(title, author, ISBN, numCopies) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+        this.numCopies = numCopies;
+      }
+
+      get availability() {
+        return this.getAvailability();
+      }
+
+      get test(){
+        return "testing";
+      }
+
+      getAvailability() {
+        if(this.numCopies === 0) {
+          return "Out of stock";
+        } else if(this.numCopies < 10) {
+          return "Low stock";
+        } // else
+        return "In stock";
+      }
+
+      sell(numCopiesSold = 1) {
+        this.numCopies -= numCopiesSold;
+      }
+
+      restock(numCopiesStocked = 10) {
+        this.numCopies += numCopiesStocked;
+      }
+    }
+
+    const Book1 = new Book(
+      "We",
+      "Yevgeny Zamyatin",
+      "9786257120432",
+      5
+    );
+
+    console.log('test');
+    console.log(Book1.availability);
+    Book1.restock();
+    console.log(Book1.availability);
+    
+    console.log(Book1);
+    console.log(Book1.test)
+
+    const Book2 = new Book(
+      "Roadside Picnic",
+      "Arkady & Boris Strugatsky",
+      "9780575070530",
+      3
+    );
+
+    const Book3 = new Book(
+      "Hyperion",
+      "Dan Simmons",
+      "9780553283686",
+      7
+    )
+
+    const Book4 = new Book(
+      "The Well of Ascension",
+      "Brandon Sanderson",
+      "9780765316882",
+      2
+    )
+
+    const BookInventory = [Book1, Book2, Book3, Book4];
+
+    function BookFunction(title, author, ISBN, numCopies) {
+      this.title = title;
+      this.author = author;
+      this.ISBN = ISBN;
+      this.numCopies = numCopies;
+    }
+
+    BookFunction.prototype.getAvailability = function() {
+      if(this.numCopies === 0) {
+        return "Out of stock";
+      } else if(this.numCopies < 10) {
+        return "Low stock";
+      } // else
+      return "In stock";
+    }
+
+    BookFunction.prototype.sell = function(numCopiesSold = 1) {
+      this.numCopies -= numCopiesSold;
+    }
+
+    BookFunction.prototype.restock = function(numCopiesStocked = 10) {
+      this.numCopoies += numCopiesStocked;
+    }
+
+    const We = new BookFunction("We", "Yevgeny Zamyatin", "9786257120432", 5);
+
+
+  </script>
+</head>
+<body>
+  <div id="bookInventory">
+    <table>
+
+    </table>
+  </div>
+</body>
+</html>
