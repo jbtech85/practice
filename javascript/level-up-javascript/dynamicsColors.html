@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closures</title>
+</head>
+<body>
+  <button id="pinkButton">Pink</button>
+  <button id="blueButton">Blue</button>
+  <button id="orangButton">Orange</button>
+
+  <script>
+
+    // can use this to create a new function, but can't call directly
+    function changeBackgroundColor(buttonColor) {
+      return function() {
+        document.body.style.background = buttonColor;
+      }
+    };
+
+    const updatePink = changeBackgroundColor("#F55FEA");
+    const updateBlue = changeBackgroundColor("#3127F5");
+    const updateOrange = changeBackgroundColor("#F54927");
+
+    
+    document.querySelector("#pinkButton").addEventListener('click', updatePink);
+    document.querySelector("#blueButton").addEventListener('click', updateBlue);
+    document.querySelector("#orangButton").addEventListener('click', updateOrange);
+
+  </script>
+</body>
+</html>
