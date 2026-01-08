@@ -9,6 +9,16 @@ import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+// tried out git filter-repo.  Still seeing history of this file.  
+// Leaving history in, as Firebase states this is okay.  Still moving to variables to reinforce good habits.
+/*
+https://firebase.google.com/docs/projects/api-keys
+
+"Usually, you need to fastidiously guard API keys (for example, 
+by using a vault service or setting the keys as environment variables); 
+however, API keys for Firebase services are OK to include in code or checked-in config files."
+*/
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
