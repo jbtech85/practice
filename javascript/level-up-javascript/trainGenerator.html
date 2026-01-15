@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="generatorButton">Next stop</button>
+
+  <script>
+    function* nextStop() {
+      yield "Here we are, Poughkeepsie"
+      yield "Here we are, Peekskill"
+      yield "Here we are, Yonkers"
+      yield "Here we are, Bronx"
+      yield "Here we are, Grand Central"
+    }
+
+    const trainStops = nextStop();
+
+    const generatorButton = document.querySelector('#generatorButton');
+    generatorButton.addEventListener('click', () => {
+      let currentStop = trainStops.next();
+      if(currentStop.done) {
+        console.log("Made it!");
+        generatorButton.setAttribute("disabled", true);
+      } else {
+        console.log(currentStop.value);
+      }
+    });
+  </script>
+</body>
+</html>
