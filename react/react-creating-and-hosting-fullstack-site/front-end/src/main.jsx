@@ -9,7 +9,6 @@ import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// tried out git filter-repo.  Still seeing history of this file.  
 // Leaving history in, as Firebase states this is okay.  Still moving to variables to reinforce good habits.
 /*
 https://firebase.google.com/docs/projects/api-keys
