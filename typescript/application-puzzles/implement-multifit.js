@@ -16,64 +16,68 @@ For this exercise, your submission should be a single txt file containing your T
 implementation of the multifit algorithm. The file should also include tests for your algorithm
 using your test framework of choice. Please clearly list any software dependencies your solution/tests use.
 */
+// expecting to be run in a node environment
+// will need to install jest >> 
+// npm i jest @types/jest ts-jest
 //
 var sumArray = function (accumulator, currentValue) {
     return accumulator + currentValue;
 };
-var multifit = function (numberArray, binMax, binIncrease) {
-    if (binIncrease === void 0) { binIncrease = false; }
-    // order the array desc
-    numberArray.sort(function (a, b) { return b - a; });
+var firstFitDescreasing = function (numberArray, binMax) {
     // if any numbers in the array are larger than bin size, give the user a warning if binIncrease is false
     if (numberArray[0] > binMax) {
-        if (binIncrease) {
-            console.log("Warning: bin size increased to accomodate array");
-            binMax = numberArray[0];
-        }
-        else {
-            console.log("Error: some items in array are larger than available bin size");
-            return [[]];
-        }
+        console.log("Error: some items in array are larger than available bin size");
+        return [[]];
     }
-    // temp
+    // order the array desc
+    numberArray.sort(function (a, b) { return b - a; });
     var bins = [[]];
-    var binRow = 0;
-    // before creating a new bin, do a sweep of existing bins
-    var sweepCheck = false;
     numberArray.forEach(function (currentNumber) {
-        console.log("binRow: ".concat(binRow, ". currentNumber: ").concat(currentNumber, ". binMax: ").concat(binMax));
-        console.log(bins[binRow].reduce(sumArray, 0) + currentNumber);
-        // on first loop we'll have a unique use case
-        if (bins[binRow].length == 0) {
-            bins[binRow].push(currentNumber);
-        }
-        // currentNumber will not put us over bin total
-        else if ((bins[binRow].reduce(sumArray, 0) + currentNumber) <= binMax) {
-            console.log('putting number into current bin');
-            bins[binRow].push(currentNumber);
-        }
-        // current number will put us over bin total
-        else {
-            sweepCheck = true;
-            // if we're not on bin[0], check previous bins for capacity
-            for (var i = 0; i < binRow; i++) {
-                if ((bins[i].reduce(sumArray, 0) + currentNumber) <= binMax) {
-                    console.log('putting number into previous bin');
-                    bins[i].push(currentNumber);
-                    sweepCheck = false;
-                    break;
-                }
+        var createNewBin = true;
+        // find the first available bin that can hold currentNumber
+        for (var i = 0; i < bins.length; i++) {
+            if ((bins[i].reduce(sumArray, 0) + currentNumber) <= binMax) {
+                bins[i].push(currentNumber);
+                createNewBin = false;
+                break;
             }
-            if (sweepCheck) {
-                // create the next row
-                bins.push([currentNumber]);
-                // reset our sweepCheck var
-                sweepCheck = false;
-                binRow++;
-            }
+        }
+        if (createNewBin) {
+            bins.push([currentNumber]);
         }
     });
     return bins;
 };
-// console.log(multifit([1,3,5,7,2,4,6,4,2,3], 6)) // expecting an error
-console.log(multifit([1, 7, 6, 3, 3, 1], 6, true)); // expecting a warning
+var multifit = function (numArray, makespan) {
+    // determine minimum bin size
+    var minBinSize = Math.max.apply(Math, numArray);
+    console.log("minBinSize: ".concat(minBinSize));
+    // get smallest subset possible
+    var subset = firstFitDescreasing(numArray, minBinSize);
+    var subsetMin = subset.length;
+    console.log("subsetMin: ".concat(subsetMin));
+    // largest subset is equal to array length
+    var subsetMax = numArray.length;
+    console.log("subsetMax: ".concat(subsetMax));
+    if (subsetMin > makespan) {
+        console.log("Makespan was ".concat(makespan, ", however minimum subset size was ").concat(subsetMin));
+        return subset;
+    }
+    return subset;
+};
+var sampleArray = [1, 3, 5, 2, 4, 2, 1, 3, 2, 3, 3, 5];
+// console.log(firstFitDescreasing(sampleArray, 7));
+console.log(multifit(sampleArray, 11));
+/********** Jest testing **********/
+// describe('multifitSuite', () => {
+//   test('reducer handles empty array', () => {
+//     const emptyArray: number[] = [];
+//     const summedArray = emptyArray.reduce(sumArray, 0);
+//     expect(summedArray).toEqual(0);
+//   });
+//   test('reducer returns correct sum', () => {
+//     const numArray: number[] = [2, 2, 2, 3, 3];
+//     const summedArray = numArray.reduce(sumArray, 0);
+//     expect(summedArray).toEqual(12);
+//   });
+// });
