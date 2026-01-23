@@ -23,6 +23,8 @@ using your test framework of choice. Please clearly list any software dependenci
 var sumArray = function (accumulator, currentValue) {
     return accumulator + currentValue;
 };
+// numberArray (S)
+// in declaring FFD, binMax is (c)
 var firstFitDescreasing = function (numberArray, binMax) {
     // if any numbers in the array are larger than bin size, give the user a warning if binIncrease is false
     if (numberArray[0] > binMax) {
@@ -48,10 +50,21 @@ var firstFitDescreasing = function (numberArray, binMax) {
     });
     return bins;
 };
-var multifit = function (numArray, makespan) {
+// numArray (S)
+// maxSubset (n)
+var multifit = function (numArray, maxSubset) {
+    var sumS = numArray.reduce(sumArray, 0);
+    var maxS = Math.max.apply(Math, numArray);
+    var n = maxSubset; // just for readability
+    var L = Math.max((sumS / n), maxS);
+    console.log("".concat(L, " (L) = max(").concat(sumS, " sum(S) / ").concat(n, " n, ").concat(maxS, " max(S) )"));
+    var U = Math.max((2 * sumS / n), maxS);
+    console.log("".concat(U, " (U) = max(").concat(2 * sumS, " 2*sum(S) / ").concat(n, " n, ").concat(maxS, " max(S) )"));
     // determine minimum bin size
     var minBinSize = Math.max.apply(Math, numArray);
     console.log("minBinSize: ".concat(minBinSize));
+    // numArray (S)
+    // in calling FFD, second param is (C)
     // get smallest subset possible
     var subset = firstFitDescreasing(numArray, minBinSize);
     var subsetMin = subset.length;
@@ -59,8 +72,8 @@ var multifit = function (numArray, makespan) {
     // largest subset is equal to array length
     var subsetMax = numArray.length;
     console.log("subsetMax: ".concat(subsetMax));
-    if (subsetMin > makespan) {
-        console.log("Makespan was ".concat(makespan, ", however minimum subset size was ").concat(subsetMin));
+    if (subsetMin > maxSubset) {
+        console.log("Max number of subsets (n) was ".concat(maxSubset, ", however minimum subset size was ").concat(subsetMin));
         return subset;
     }
     return subset;

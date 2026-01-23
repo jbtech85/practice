@@ -1,15 +1,9 @@
 /*
-Purpose
-The purpose of this task is to provide the interviewers with a code sample from the interviewee. 
-The interviewers will evaluate the sample for code quality and correctness.
-
 Prompt
 The multifit algorithm is an approximation algorithm for multiway number partitioning:
 https://en.wikipedia.org/wiki/Multifit_algorithm
 
-Please implement multifit in TypeScript. We encourage you to refer to the pseudo code in the 
-Wikipedia article on multifit. We will evaluate the correctness of your implementation by importing 
-it into a program of our own design. You may decide how your implementation should be used.
+Please implement multifit in TypeScript. You may decide how your implementation should be used.
 
 Submission
 For this exercise, your submission should be a single txt file containing your TypeScript 
@@ -27,7 +21,9 @@ const sumArray = (accumulator: number, currentValue: number): number => {
   return accumulator + currentValue;
 }
 
-const firstFitDescreasing = (numberArray: number[], binMax: number): number[][] => {
+// numberArray (S)
+// in declaring FFD, binMax is (c)
+const firstFitDecreasing = (numberArray: number[], binMax: number): number[][] => {
   // if any numbers in the array are larger than bin size, give the user a warning if binIncrease is false
   if(numberArray[0] > binMax) {
     console.log("Error: some items in array are larger than available bin size");
@@ -60,33 +56,40 @@ const firstFitDescreasing = (numberArray: number[], binMax: number): number[][] 
   return bins;
 }
 
-
-const multifit = (numArray: number[], makespan: number): number[][] => {
-  // let L = max (sum(numArray) / makespan, Math.max(...numArray))
-
-
-  // determine minimum bin size
-  const minBinSize = Math.max(...numArray);
-  console.log(`minBinSize: ${minBinSize}`)
-
-  // get smallest subset possible
-  const subset = firstFitDescreasing(numArray, minBinSize);
-  let subsetMin = subset.length;
+// numArray (S)
+// maxSubset (n)
+const multifit = (numArray: number[], maxSubset: number, k: number = 3): number[][] => {
+  let sumS = numArray.reduce(sumArray, 0);
+  let maxS = Math.max(...numArray);
+  let L = Math.max((sumS / n), maxS);
+  // just for readability
+  let n = maxSubset; 
+  let S = numArray;
   
-  console.log(`subsetMin: ${subsetMin}`);
-  
-  // largest subset is equal to array length
-  let subsetMax = numArray.length;
+  console.log(`${L} (L) = max(${sumS} sum(S) / ${n} n, ${maxS} max(S) )`);
 
-  console.log(`subsetMax: ${subsetMax}`);
+  let U = Math.max((2*sumS / n), maxS);
+  console.log(`${U} (U) = max(${2*sumS} 2*sum(S) / ${n} n, ${maxS} max(S) )`);
 
-  if(subsetMin > makespan){
-    console.log(`Makespan was ${makespan}, however minimum subset size was ${subsetMin}`);
-    return subset;
+  for(let i = 0; i <= k; i++) {
+    // Let C = (L+U)/2. 
+    let C = (L + U)/2;
+    // Run FFD on S with capacity C
+    let FFD = firstFitDecreasing(S, C);
+    // if FFD needs at most n bins
+    if(FFD.length <= n) {
+      // decrease U by letting U = C
+      U = C;
+    }
+    // if FFD needs more than n bins,
+    else {
+      // increase L by letting L = C
+      L = C;
+    }  
   }
 
-
-
+  // finally, run FFD with capacity U
+  let subset = firstFitDecreasing(S, U);
 
   return subset;
 }
