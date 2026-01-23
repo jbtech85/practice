@@ -44,7 +44,7 @@
         .append("rect")
         .attr("height",d => d*15)
         .attr("width",50)
-        .attr("x",(d, i) => (i * 60) + 10)
+        .attr("x",(d, i) => (i * 60) + 10) // d = datapoint, i = index, just convention not required naming
         .attr("y", d => 500 - (d * 15))
     </script>
       

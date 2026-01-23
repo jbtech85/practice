@@ -3,25 +3,19 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2.3 dynamic duo</title>
+    <title>2.5 circle challenge</title>
       <style>
       html, body {
         height: 100%;
         margin: 0;
       }
       svg { 
-        background-color: #555;
+        background-color: hsl(20, 54%, 57%);
       }
       circle { 
-        fill: green;
-        stroke: yellow;
-        stroke-width: 3px;
-      }
-      rect {
-        fill: rgb(120, 229, 233);
-      }
-      text {
-        fill: white;
+        fill: hsl(182, 59%, 62%);
+        stroke: hsl(0, 2%, 32%);
+        stroke-width: 1px;
       }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -34,18 +28,17 @@
       const svg = d3.select("body").append("svg")
       .attr("height","100%")
       .attr("width","100%");
-      // .attr("viewBox", `0 0 ${width} ${height}`)
-      // .attr("preserveAspectRatio", "xMidYMid meet");
       
-      const someDataArray = [16, 26, 10];
-      const boundData = svg.selectAll("rect").data(someDataArray);
+      const circleDataArray = [2, 5, 7, 10, 12, 15, 16];
+
+      const boundData = svg.selectAll("circle").data(circleDataArray);
       const enterSelection = boundData.enter();
-      enterSelection.append("rect")
+      enterSelection.append("circle")
         .attr("height",d => d*15)
         .attr("width",50)
-        .attr("x",(d, i) => (i * 60) + 10)
-        .attr("y", d => 500 - (d * 15))
+        .attr("r", 50)
+        .attr("cx",(d, i) => (i * 60) + 20)
+        .attr("cy", d => 500 - (d * 15))
     </script>
-      
   </body>
 </html>

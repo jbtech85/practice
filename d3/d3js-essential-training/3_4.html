@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.4 traffic light</title>
+      <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      svg { 
+        background-color: hsl(20, 54%, 57%);
+      }
+      rect {
+        fill: hsl(49, 78%, 20%)
+      }
+      text {
+        fill: hsl(0, 0%, 13%);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <script>
+      const height = document.documentElement.clientHeight;
+      const width = document.documentElement.clientWidth;
+      
+      const svg = d3.select("body").append("svg")
+      .attr("height","100%")
+      .attr("width","100%");
+      
+      svg.append("rect")
+        .attr("x", "100")
+        .attr("y", "200")
+        .attr("height", "500")
+        .attr("width", "300");
+
+      svg.append("circle")
+        .attr("r", "70")
+        .attr("cx", "250")
+        .attr("cy", "300")
+        .style("fill", "red");
+
+      svg.append("circle")
+        .attr("r", "70")
+        .attr("cx", "250")
+        .attr("cy", "450")
+        .style("fill", "orange");
+
+      svg.append("circle")
+        .attr("r", "70")
+        .attr("cx", "250")
+        .attr("cy", "600")
+        .style("fill", "green");
+
+      svg.append("text").text("Stop")
+        .attr("x", "250")
+        .attr("text-anchor", "middle")
+        .attr("y", "305");
+
+      svg.append("text").text("Wait")
+        .attr("x", "250")
+        .attr("text-anchor", "middle")
+        .attr("y", "455");
+
+      svg.append("text").text("Go")
+        .attr("x", "250")
+        .attr("text-anchor", "middle")
+        .attr("y", "605");
+
+    </script>
+  </body>
+</html>
