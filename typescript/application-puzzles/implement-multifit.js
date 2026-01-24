@@ -1,15 +1,9 @@
 /*
-Purpose
-The purpose of this task is to provide the interviewers with a code sample from the interviewee.
-The interviewers will evaluate the sample for code quality and correctness.
-
 Prompt
 The multifit algorithm is an approximation algorithm for multiway number partitioning:
 https://en.wikipedia.org/wiki/Multifit_algorithm
 
-Please implement multifit in TypeScript. We encourage you to refer to the pseudo code in the
-Wikipedia article on multifit. We will evaluate the correctness of your implementation by importing
-it into a program of our own design. You may decide how your implementation should be used.
+Please implement multifit in TypeScript. You may decide how your implementation should be used.
 
 Submission
 For this exercise, your submission should be a single txt file containing your TypeScript
@@ -25,12 +19,7 @@ var sumArray = function (accumulator, currentValue) {
 };
 // numberArray (S)
 // in declaring FFD, binMax is (c)
-var firstFitDescreasing = function (numberArray, binMax) {
-    // if any numbers in the array are larger than bin size, give the user a warning if binIncrease is false
-    if (numberArray[0] > binMax) {
-        console.log("Error: some items in array are larger than available bin size");
-        return [[]];
-    }
+var firstFitDecreasing = function (numberArray, binMax) {
     // order the array desc
     numberArray.sort(function (a, b) { return b - a; });
     var bins = [[]];
@@ -52,35 +41,44 @@ var firstFitDescreasing = function (numberArray, binMax) {
 };
 // numArray (S)
 // maxSubset (n)
-var multifit = function (numArray, maxSubset) {
+var multifit = function (numArray, maxSubset, k) {
+    if (k === void 0) { k = 3; }
+    console.log("Math.min numArray is ".concat(Math.min.apply(Math, numArray)));
+    if (Math.min.apply(Math, numArray) < 1) {
+        throw new Error("All numbers must be greater than 0");
+    }
+    // just for readability
+    var n = maxSubset;
+    var S = numArray;
     var sumS = numArray.reduce(sumArray, 0);
     var maxS = Math.max.apply(Math, numArray);
-    var n = maxSubset; // just for readability
     var L = Math.max((sumS / n), maxS);
     console.log("".concat(L, " (L) = max(").concat(sumS, " sum(S) / ").concat(n, " n, ").concat(maxS, " max(S) )"));
     var U = Math.max((2 * sumS / n), maxS);
     console.log("".concat(U, " (U) = max(").concat(2 * sumS, " 2*sum(S) / ").concat(n, " n, ").concat(maxS, " max(S) )"));
-    // determine minimum bin size
-    var minBinSize = Math.max.apply(Math, numArray);
-    console.log("minBinSize: ".concat(minBinSize));
-    // numArray (S)
-    // in calling FFD, second param is (C)
-    // get smallest subset possible
-    var subset = firstFitDescreasing(numArray, minBinSize);
-    var subsetMin = subset.length;
-    console.log("subsetMin: ".concat(subsetMin));
-    // largest subset is equal to array length
-    var subsetMax = numArray.length;
-    console.log("subsetMax: ".concat(subsetMax));
-    if (subsetMin > maxSubset) {
-        console.log("Max number of subsets (n) was ".concat(maxSubset, ", however minimum subset size was ").concat(subsetMin));
-        return subset;
+    for (var i = 0; i <= k; i++) {
+        // Let C = (L+U)/2. 
+        var C = (L + U) / 2;
+        // Run FFD on S with capacity C
+        var FFD = firstFitDecreasing(S, C);
+        // if FFD needs at most n bins
+        if (FFD.length <= n) {
+            // decrease U by letting U = C
+            U = C;
+        }
+        // if FFD needs more than n bins,
+        else {
+            // increase L by letting L = C
+            L = C;
+        }
     }
+    // finally, run FFD with capacity U
+    var subset = firstFitDecreasing(S, U);
     return subset;
 };
-var sampleArray = [1, 3, 5, 2, 4, 2, 1, 3, 2, 3, 3, 5];
-// console.log(firstFitDescreasing(sampleArray, 7));
-console.log(multifit(sampleArray, 11));
+var sampleArray = [1, 3, 3, 2, 4, 2, 1, 3, 2, 3, 3, 4];
+// console.log(firstFitDecreasing(sampleArray, 7));
+console.log(multifit(sampleArray, 4, 10));
 /********** Jest testing **********/
 // describe('multifitSuite', () => {
 //   test('reducer handles empty array', () => {
@@ -92,5 +90,12 @@ console.log(multifit(sampleArray, 11));
 //     const numArray: number[] = [2, 2, 2, 3, 3];
 //     const summedArray = numArray.reduce(sumArray, 0);
 //     expect(summedArray).toEqual(12);
+//   });
+//   test('FFD returns expected outcome', () => {
+//     const FFDresult = firstFitDecreasing([1, 3, 3, 2, 4, 2, 1, 3, 2, 3, 3, 4], 7);
+//     expect(FFDresult).toEqual([[4, 3],[4, 3],[3, 3, 1],[3, 2, 2],[2, 1]]);
+//   });
+//   test('multifit rejects numbers less than 1', () => {
+//     expect(() => multifit([1, 2, 3, 4, 5, 0], 4)).toThrow("All numbers must be greater than 0");
 //   });
 // });
