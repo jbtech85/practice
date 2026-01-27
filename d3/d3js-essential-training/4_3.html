@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.2 line and area generators</title>
+      <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      svg { 
+        background-color: hsl(20, 54%, 57%);
+      }
+      text {
+        fill: hsl(0, 0%, 13%);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      line, path {
+        /* stroke: blue;
+        stroke-width: 4px; */
+        fill: green;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <script>
+      const interpolateTypes = [
+        d3.curveLinear,
+        d3.curveNatural,
+        d3.curveStep,
+        d3.curveBasis,
+        d3.curveCardinal,
+        d3.curveCardinalOpen
+      ]
+
+      const height = document.documentElement.clientHeight;
+      const width = document.documentElement.clientWidth;
+
+      const svg = d3.select("body").append("svg")
+        .attr("height","100%")
+        .attr("width","100%");
+      
+      const rows = 3, cols = 2;
+      const chartWidth = width / cols, chartHeight = height / rows;
+      const h = chartHeight / 2;
+
+
+      const line = d3.line()
+        .x(d => d.x * 10)
+        .y(d => d.y)
+        .curve(d3.curveMonotoneX);
+
+      const area = d3.area()
+        .x(d => d.x * 10)
+        .y1(d => d.y)
+        .y0(height/2)
+        .curve(d3.curveMonotoneX);
+
+      const groups = svg.selectAll('g').data(interpolateTypes)
+        .enter().append('g')
+        .attr('class', (d, i) => `g${i}`)
+        
+      
+    </script>
+  </body>
+</html>

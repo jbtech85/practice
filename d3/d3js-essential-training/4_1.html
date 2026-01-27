@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3.4 traffic light</title>
+    <title>4.1 Path</title>
       <style>
       html, body {
         height: 100%;
@@ -40,7 +40,9 @@
       //   .attr("fill", "none");
 
       svg.append("path")
-        .attr("d","M 50 300 C400 300, 400 100, 50 100")
+        // .attr("d","M 50 300 C400 300, 400 100, 50 100")
+        // .attr("d","M 152 263 C -58 74 529 -31 376 240")
+        .attr("d","M 569 229 A 245 98 136 0 0 288 314")
         .attr("fill", "none");
 
       const labelArray = ['Stop', 'Wait', 'Go'];
