@@ -1,2 +1,4 @@
-# Doing this a bit differently than the tutorial.
-# This repo will live inside of my main practice repo.
+Doing this a bit differently than the tutorial.
+This repo will live inside of my main practice repo.
+
+Next, developing a workflow from the ground up.
