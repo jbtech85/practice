@@ -17,6 +17,8 @@ s = t.strftime("%A %B %d, %Y")
 # print(f"5 weeks ago it was {s}")
 
 
-# today = date.today()
-# afd = date(today.year, 4, 1)
-# if 
+today = date.today()
+afd = date(today.year, 4, 1)
+if afd < today:
+  print(f"April Fool's day already went by {(today-afd).days} days ago")
+  afd = afd.replace(year = today.year + 1)
