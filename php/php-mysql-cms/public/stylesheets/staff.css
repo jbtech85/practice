@@ -19,6 +19,11 @@ header {
   color: white;
 }
 
+a {
+  color: hsl(240, 87%, 65%);
+  text-decoration: none;
+}
+
 header h1 {
   margin: 0;
   padding: 5px;
