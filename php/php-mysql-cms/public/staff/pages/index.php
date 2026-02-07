@@ -27,7 +27,7 @@
         <h1>Pages</h1>
 
         <div class="actions">
-          <a class="action" href="">Create New Page</a>
+          <a class="action" href="<?= url_for('/staff/pages/new.php'); ?>">Create New Page</a>
         </div>
 
         <table class="list">
@@ -41,14 +41,16 @@
             <th>&nbsp;</th>
           </tr>
 
-          <?php foreach($subjects as $subject) { ?>
+          <?php foreach($subjects as $subject) { 
+            $scrubbedID = htmlspecialchars(urlencode($subject['id']));  ?>
+            
             <tr>
               <td><?= htmlspecialchars($subject['id']); ?></td>
               <td><?= htmlspecialchars($subject['position']); ?></td>
               <td><?= $subject['visible'] == 1 ? 'true' : 'false'; ?></td>
               <td><?= htmlspecialchars($subject['page_name']); ?></td>
               <td><a class="action" href="<?= url_for('/staff/pages/show.php?id=' . $subject['id']); ?>">View</a></td>
-              <td><a class="action" href="">Edit</a></td>
+              <td><a class="action" href="<?= url_for('/staff/pages/edit.php?id=' . $scrubbedID); ?>">Edit</a></td>
               <td><a class="action" href="">Delete</a></td>
             </tr>
           <?php } ?>
