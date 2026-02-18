@@ -2,7 +2,7 @@
 
 name: second
 
-on: [push]
+on: [workflow_dispatch]
 
 jobs:
   job1:
