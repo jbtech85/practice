@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import styled from 'styled-components';
-import { fetchPosts, fetchUser } from '../lib/storage';
+import { fetchPosts, fetchUser } from '../lib/api';
 import { toggleLike } from '../lib/storage';
 import { PostCard } from '../components/PostCard/PostCard';
 import type { PostWithCounts, User } from '../types/blog';

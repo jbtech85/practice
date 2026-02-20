@@ -3,7 +3,7 @@ import type { LocalStorage } from "../types/blog";
 const STORAGE_KEY = 'blog_data';
 
 export function getStorageData(): LocalStorage {
-  const data = localStorage.getItems(STORAGE_KEY);
+  const data = localStorage.getItem(STORAGE_KEY);
   if(!data){
     return { likes: [] };
   }

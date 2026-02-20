@@ -1,9 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
+import { AuthProvider } from './contexts/AuthContext';
+import { Navbar } from './components/Navbar/Navbar';
+import { Home } from './pages/Home';
+import { Post } from './pages/Post';
+import { Login } from './pages/Login';
+import { Register } from './pages/Register/Register';
+import { CreatePost } from './pages/CreatePost';
 
-
-import './App.css'
-import Button from './components/Button/Button'
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -18,13 +22,23 @@ const MainContent = styled.main`
 
 function App() {
   return (
-    <div>
-      <h1>
-        Welcome to our Blog app
-      </h1>
-      <Button label="Create a post" onClick={() => {}} />
-    </div>
-  )
+    <AuthProvider>
+      <Router>
+        <AppContainer>
+          <Navbar />
+          <MainContent>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/post/:id" element = {<Post />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/create" element={<CreatePost />} />
+            </Routes>
+          </MainContent>
+        </AppContainer>
+      </Router>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
