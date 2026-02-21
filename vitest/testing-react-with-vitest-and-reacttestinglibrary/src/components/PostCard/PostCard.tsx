@@ -50,6 +50,11 @@ export function PostCard({ post, authorName, onLike }: PostCardProps) {
                 <ThumbsUp size={16} />
                 <span>{post.likesCount}</span>
               </StatButton>
+
+              <StatButton as="div">
+                <MessageSquare size={16} />
+                <span>{post.commentsCount}</span>
+              </StatButton>
             </PostStats>
           </PostMeta>
         </PostContent>

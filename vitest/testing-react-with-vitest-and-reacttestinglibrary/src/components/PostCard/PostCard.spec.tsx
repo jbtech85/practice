@@ -11,7 +11,7 @@ const mockPost = {
   body: 'A'.repeat(250), // ha, nice
   likesCount: 5,
   commentsCount: 3,
-  isLiked: false,
+  isLiked: false
 };
 
 describe('PostCard component', () => {
@@ -41,5 +41,54 @@ describe('PostCard component', () => {
     expect(screen.queryByText('...')).not.toBeInTheDocument();
   });
 
-  
+  it('calls onLike when like button is clicked', async () => {
+    const onLike = vi.fn();
+    render(
+      <MemoryRouter>
+        <PostCard post={mockPost} authorName="Bob Doe" onLike={onLike} />
+      </MemoryRouter>
+    );
+
+    const likeButton = screen.getByRole('button', { name: /5/i });
+    await userEvent.click(likeButton);
+
+    expect(onLike).toHaveBeenCalledWith(mockPost.id, expect.any(Object));
+  });
+
+  it('navigates to correct URL on click', async () => {
+    render(
+      <MemoryRouter>
+        {/* it's got what plants crave */}
+        <PostCard post={mockPost} authorName="Braun Doe" onLike={vi.fn()}  />
+      </MemoryRouter>
+    );
+
+    const link = screen.getByRole('link');
+    expect(link).toHaveAttribute('href', `/post/${mockPost.id}`);
+  });
+
+  it('applies correct styles when liked', async () => {
+    render(
+      <MemoryRouter>
+        <PostCard post={{ ...mockPost, isLiked: true }} authorName="Datbeat Doe" onLike={vi.fn()} />
+      </MemoryRouter>
+    );
+    
+    const likeButton = screen.getByRole('button', { name: /5/i});
+    const buttonStyle = getComputedStyle(likeButton);
+    expect(buttonStyle.color).toBe('rgb(37, 99, 235)');
+  });
+
+  it('applices correct styles when not liked', () => {
+    render(
+      <MemoryRouter>
+        <PostCard post={{ ...mockPost, isLiked: false }} authorName="Hem Boe" onLike={vi.fn()} />
+      </MemoryRouter>
+    );
+
+    const likeButton = screen.getByRole('button', { name: /5/i });
+    const styles = getComputedStyle(likeButton);
+
+    expect(styles.color).toBe('rgb(107, 114, 128)'); // #6b7280
+  });
 });
