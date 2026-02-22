@@ -6,7 +6,7 @@ import { Home } from './pages/Home';
 import { Post } from './pages/Post';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register/Register';
-import { CreatePost } from './pages/CreatePost';
+import { CreatePost } from './pages/CreatePost/CreatePost';
 
 
 const AppContainer = styled.div`

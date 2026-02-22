@@ -79,6 +79,8 @@ export function Home() {
     const loadPosts = async() => {
       try {
         const posts = await fetchPosts(searchQuery);
+        console.log(posts);
+        console.log(searchQuery);
         setPosts(posts);
 
         const uniqueUserIds = [...new Set(posts.map(post => post.userId))];

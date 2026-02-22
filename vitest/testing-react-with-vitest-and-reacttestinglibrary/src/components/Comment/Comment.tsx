@@ -80,7 +80,7 @@ interface CommentProps {
   canModify: boolean;
 }
 
-export function Comment({ comment, onEdit, onDelete, canModify }: CommentProps) {
+export function Comment({ comment, onEdit, onDelete, canModify=false }: CommentProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEdit = async({ content }: { content: string }) => {
@@ -129,6 +129,7 @@ export function Comment({ comment, onEdit, onDelete, canModify }: CommentProps) 
           </CommentActions>
         )}
       </CommentHeader>
+      <CommentContent>{comment.body}</CommentContent>
     </CommentContainer>
   );
 }

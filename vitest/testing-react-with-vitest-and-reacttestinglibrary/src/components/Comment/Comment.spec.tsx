@@ -22,6 +22,47 @@ describe('Comment component', () => {
       />
     );
 
-    // expect
-  })
-})
+    expect(screen.getByText('Chi Doe')).toBeInTheDocument();
+    expect(screen.getByText('This is the test comment.')).toBeInTheDocument();
+    expect(screen.queryByTitle('Edit')).not.toBeInTheDocument();
+    expect(screen.queryByTitle('Delete')).not.toBeInTheDocument();
+  });
+
+  it('shows edit and delete buttons when canModify is true', () => {
+    render(
+      <Comment
+        comment={mockComment}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+        canModify={true}
+      />
+    );
+
+    expect(screen.getByTitle('Edit')).toBeInTheDocument();
+    expect(screen.queryByTitle('Delete')).toBeInTheDocument();
+  });
+
+  it('enters edit mode and submits edited comment', async () => {
+    const onEdit = vi.fn().mockResolvedValue(undefined);
+    render(
+      <Comment
+        comment={mockComment}
+        onEdit={onEdit}
+        onDelete={vi.fn()}
+        canModify={true}
+      />
+    );
+
+    await userEvent.click(screen.getByTitle('Edit'));
+
+    const textarea = screen.getByPlaceholderText('Write your comment');
+    await userEvent.clear(textarea);
+    await userEvent.type(textarea, 'Updated comment content');
+    await userEvent.click(screen.getByText('Save Changes'));
+
+    await waitFor(() =>
+      expect(onEdit).toHaveBeenCalledWith(1, 'Updated comment content')
+    );
+
+  });
+});
