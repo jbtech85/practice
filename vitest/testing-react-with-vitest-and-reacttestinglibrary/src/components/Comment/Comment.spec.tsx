@@ -63,6 +63,41 @@ describe('Comment component', () => {
     await waitFor(() =>
       expect(onEdit).toHaveBeenCalledWith(1, 'Updated comment content')
     );
+  });
 
+  it('calls onDelete after confirmation', async () => {
+    const onDelete = vi.fn().mockResolvedValue(undefined);
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    
+    render(
+      <Comment
+        comment={mockComment}
+        onEdit={vi.fn()}
+        onDelete={onDelete}
+        canModify={true}
+      />
+    );
+
+    await userEvent.click(screen.getByTitle('Delete'));
+    
+    await waitFor(() => expect(onDelete).toHaveBeenCalledWith(1));
+  });
+
+  it('does not call onDelete if user cancels', async () => {
+    const onDelete = vi.fn();
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+    render(
+      <Comment
+        comment={mockComment}
+        onEdit={vi.fn()}
+        onDelete={onDelete}
+        canModify={true}
+      />
+    );
+
+    await userEvent.click(screen.getByTitle('Delete'));
+
+    expect(onDelete).not.toHaveBeenCalled();
   });
 });
