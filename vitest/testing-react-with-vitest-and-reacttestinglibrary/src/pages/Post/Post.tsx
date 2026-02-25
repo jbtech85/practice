@@ -119,7 +119,7 @@ export function Post() {
               </span>
             </AuthorInfo>
             <PostStats>
-              <StatButton onClick={handleLike} isLiked={post.isLiked}>
+              <StatButton onClick={handleLike} isLiked={post.isLiked} data-testid={`likeButton-${post.id}`}>
                 <ThumbsUp size={20} />
                 <span>{post.likesCount}</span>
               </StatButton>
