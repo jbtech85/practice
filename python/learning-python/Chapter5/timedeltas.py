@@ -9,16 +9,21 @@ now = datetime.now()
 
 # print(f"In one year it'll be: {now + timedelta(days=365)}")
 
-print(f"In 3 weeks and 4 days it will be: {now + timedelta(weeks=3,days=4)}")
+# print(f"In 3 weeks and 4 days it will be: {now + timedelta(weeks=3,days=4)}")
 
 
-t = datetime.now() - timedelta(weeks=5)
-s = t.strftime("%A %B %d, %Y")
+# t = datetime.now() - timedelta(weeks=5)
+# s = t.strftime("%A %B %d, %Y")
 # print(f"5 weeks ago it was {s}")
 
 
 today = date.today()
+today = today.replace(month = 7)
+# april fools day
 afd = date(today.year, 4, 1)
 if afd < today:
   print(f"April Fool's day already went by {(today-afd).days} days ago")
   afd = afd.replace(year = today.year + 1)
+
+time_to_afd = afd-today
+print(f"It's just {time_to_afd.days} days until April Fools'")
