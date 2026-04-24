@@ -1,0 +1,21 @@
+2026-04-23 17:49:27,687 - INFO - Found 10 CSV files to process
+2026-04-23 17:49:27,724 - INFO - Successfully processed: incoming_data_01.csv
+2026-04-23 17:49:27,730 - INFO - Successfully processed: incoming_data_02.csv
+2026-04-23 17:49:27,734 - INFO - Successfully processed: incoming_data_03.csv
+2026-04-23 17:49:27,740 - INFO - Successfully processed: incoming_data_04.csv
+2026-04-23 17:49:27,747 - INFO - Successfully processed: incoming_data_05.csv
+2026-04-23 17:49:27,753 - INFO - Successfully processed: incoming_data_06.csv
+2026-04-23 17:49:27,768 - INFO - Successfully processed: incoming_data_07.csv
+2026-04-23 17:49:27,773 - INFO - Successfully processed: incoming_data_08.csv
+2026-04-23 17:49:27,779 - INFO - Successfully processed: incoming_data_09.csv
+2026-04-23 17:49:27,784 - ERROR - Failed to process incoming_data_10.csv: Missing required columns: {'inspection_result'}
+Traceback (most recent call last):
+  File "C:\Users\okria\Coding\practice\python\general-etl-practice\multi-file-transform.py", line 62, in process_all_files
+    df = process_file(filepath)
+  File "C:\Users\okria\Coding\practice\python\general-etl-practice\multi-file-transform.py", line 42, in process_file
+    df = validate_cols(df)
+  File "C:\Users\okria\Coding\practice\python\general-etl-practice\multi-file-transform.py", line 36, in validate_cols
+    raise ValueError(f"Missing required columns: {missing}")
+ValueError: Missing required columns: {'inspection_result'}
+2026-04-23 17:49:27,801 - INFO - Finished. 9 succeeded, 1 failed.
+2026-04-23 17:49:27,801 - ERROR - Failed files: ['incoming_data_10.csv']
